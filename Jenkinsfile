@@ -2,25 +2,28 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/ProfessorWeeb/Tests.git'
+            }
+        }
 
         stage('Build') {
             steps {
-                echo 'Building the application'
+                bat 'echo "building the app"'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests'
+                bat 'echo "Running tests"'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying the application'
-                echo 'Hello World!'
+                bat 'echo "deploying"'
             }
         }
-
     }
 }
