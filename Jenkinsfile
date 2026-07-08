@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    print(Hello World!)
+
     stages {
 
         stage('Build') {
@@ -18,6 +18,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application'
+                echo 'Hello World!'
             }
         }
 
