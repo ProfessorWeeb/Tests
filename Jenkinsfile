@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/professorweeb/test-flask.git'
+                    url: 'https://github.com/professorweeb/Tests.git'
             }
         }
 
