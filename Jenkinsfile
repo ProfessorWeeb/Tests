@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'professorweeb/test'
-        DOCKER_EXE = 'C:\\Users\\Danie_000\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
     }
 
     stages {
@@ -16,7 +15,7 @@ pipeline {
 
         stage('Build Docker image') {
             steps {
-                bat "\"%DOCKER_EXE%\" build -t %IMAGE_NAME%:latest ."
+                bat "\"C:\\Users\\Danie_000\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe\" build -t %IMAGE_NAME%:latest ."
             }
         }
 
@@ -30,14 +29,12 @@ pipeline {
                     )
                 ]) {
                     bat """
-                    echo %DOCKER_PASS% | "%DOCKER_EXE%" login -u %DOCKER_USER% --password-stdin
-                    "%DOCKER_EXE%" push %IMAGE_NAME%:latest
-                    "%DOCKER_EXE%" logout
+                    echo %DOCKER_PASS% | "C:\\Users\\Danie_000\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" login -u %DOCKER_USER% --password-stdin
+                    "C:\\Users\\Danie_000\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" push %IMAGE_NAME%:latest
+                    "C:\\Users\\Danie_000\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" logout
                     """
                 }
             }
         }
-    }
-}
     }
 }
