@@ -1,37 +1,43 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = 'professorweeb/test-flask'
+    }
+
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/ProfessorWeeb/Tests.git'
+                git branch: 'main',
+                    url: 'https://github.com/professorweeb/test-flask.git'
             }
         }
 
-        stage('Build') {
+        stage('Build Docker image') {
             steps {
-                bat 'echo "building the app"'
+                bat "docker build -t %IMAGE_NAME%:latest ."
             }
         }
 
-        stage('Test') {
+        stage('Push to Dockerhub') {
             steps {
-                bat 'echo "Running tests"'
-            }
-        }
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'docker',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASS'
+                    )
+                ]) {
+                    bat """
+                    echo %DOCKER_PASS% |
+                    docker login -u %DOCKER_USER% --password-stdin
 
-        stage('Deploy') {
-            steps {
-                bat 'echo "deploying"'
+                    docker push %IMAGE_NAME%:latest
+
+                    docker logout
+                    """
+                }
             }
         }
-    }
-}
-post{
-    success{
-        bat 'echo "build successful"'
-    }
-    failure{
-        bat 'echo "build failed"'
     }
 }
