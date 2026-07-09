@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'professorweeb/test-flask'
+        IMAGE_NAME = 'professorweeb/test'
     }
 
     stages {
@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build Docker image') {
             steps {
-                bat "docker build -t %IMAGE_NAME%:latest ."
+                bat "\"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe\" build -t %IMAGE_NAME%:latest ."
             }
         }
 
@@ -30,11 +30,11 @@ pipeline {
                 ]) {
                     bat """
                     echo %DOCKER_PASS% |
-                    docker login -u %DOCKER_USER% --password-stdin
-
-                    docker push %IMAGE_NAME%:latest
-
-                    docker logout
+                    "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" login -u %DOCKER_USER% --password-stdin
+                    
+                    "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" push %IMAGE_NAME%:latest
+                    
+                    "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" logout
                     """
                 }
             }
