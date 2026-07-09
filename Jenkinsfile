@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build Docker image') {
             steps {
-                bat "\"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe\" build -t %IMAGE_NAME%:latest ."
+                bat "\"C:\\Users\\Danie_000\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe\" build -t %IMAGE_NAME%:latest ."
             }
         }
 
@@ -30,11 +30,11 @@ pipeline {
                 ]) {
                     bat """
                     echo %DOCKER_PASS% |
-                    "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" login -u %DOCKER_USER% --password-stdin
+                    "C:\\Users\\Danie_000\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" login -u %DOCKER_USER% --password-stdin
                     
-                    "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" push %IMAGE_NAME%:latest
+                    "C:\\Users\\Danie_000\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" push %IMAGE_NAME%:latest
                     
-                    "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" logout
+                    "C:\\Users\\Danie_000\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" logout
                     """
                 }
             }
